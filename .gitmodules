@@ -1,0 +1,3 @@
+[submodule "lib/Coffeequate"]
+	path = lib/Coffeequate
+	url = https://github.com/zvxryb/Coffeequate.git
