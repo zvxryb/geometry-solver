@@ -19,7 +19,7 @@
 				start:
 					'(function (root, solve) {\n'+
 					'  root.solve = solve;\n'+
-					'})(this, function() {\n',
+					'})(typeof global === \'object\' ? global : this, function() {\n',
 				end: '\n'+
 					'return module_solve_main;\n'+
 					'}());\n'
