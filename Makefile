@@ -2,7 +2,7 @@
 .PHONY: test build clean
 
 COFFEEQUATE_DIR = lib/Coffeequate/coffeequate/src
-COFFEEQUATE_SRC = $(wildcard $(COFFEEQUATE_DIR)/*.coffee)
+COFFEEQUATE_SRC = $(wildcard $(COFFEEQUATE_DIR)/*.coffee $(COFFEEQUATE_DIR)/operators/*.coffee)
 COFFEEQUATE_OBJ = $(COFFEEQUATE_SRC:.coffee=.js)
 COFFEEQUATE_BIN = build/lib/coffeequate.js
 BIN = build/openjscad-solve.min.js
