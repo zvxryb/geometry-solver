@@ -73,17 +73,18 @@ define ['coffeequate'], (CQ) ->
 		@solve: (x, expr, exprList) ->
 			if expr.vars.length is 1 and expr.vars[0] is x
 				return (y.approx() for y in expr.solve(x))
-			results = []
 			for e0 in exprList
 				common = expr.common(e0)
 				continue unless common.length > 0
 				for y in common
 					continue if y is x
+					results = []
 					for e1 in e0.solve(y)
 						results.push(@solve(x,
 							expr.sub([[y, e1]]),
 							exprList.filter((e2) -> e2 isnt e0))...)
-			return results
+					return results if results.length > 0
+			return []
 		
 		solve: (x) ->
 			vars = @vars()
