@@ -20,6 +20,18 @@ var solutionMatcher = function (util, eq) {
 	};
 };
 
+var exprMatcher = function (util, eq) {
+	return {
+		compare: function (actual, expected) {
+			var pass = actual.cq.equals(expected.cq);
+			return {
+				pass: pass,
+				message: actual.cq.toString() + (pass ? ' equals ' : ' does not equal ') + expected.cq.toString()
+			}
+		}
+	}
+}
+
 describe('triangle', function () {
 	beforeEach(function() {
 		jasmine.addMatchers({
@@ -56,6 +68,38 @@ describe('triangle', function () {
 		expect(y1).toHaveSolutions([0]);
 		expect(x2).toHaveSolutions([3]);
 		expect(y2).toHaveSolutions([4, -4]);
+	});
+});
+
+describe('constraints', function () {
+	beforeEach(function() {
+		jasmine.addMatchers({
+			toEqualExpr: exprMatcher
+		});
+	});
+
+	it('scalar', function () {
+		var Expr   = global.solve.Expr;
+		var Scalar = global.solve.Scalar;
+		var a = new Scalar('a');
+		var b = new Scalar('b');
+		var actual   = a.isEqualTo(b);
+		var expected = Expr.parse('a = b');
+		expect(actual).toEqualExpr(expected);
+	});
+
+	it('vector', function () {
+		var Expr = global.solve.Expr;
+		var Vec2 = global.solve.Vector.Vec2;
+		var Vec3 = global.solve.Vector.Vec3;
+		var a = new Vec2('a');
+		var b = new Vec2('b');
+		var c = new Vec3('c');
+		var d = new Vec3('d');
+		expect(a.isUnit()).toEqualExpr(Expr.parse('a_x**2 + a_y**2 = 1'))
+		expect(a.isOrthogonalTo(b)).toEqualExpr(Expr.parse('a_x*b_x + a_y*b_y = 0'))
+		expect(c.isUnit()).toEqualExpr(Expr.parse('c_x**2 + c_y**2 + c_z**2 = 1'))
+		expect(c.isOrthogonalTo(d)).toEqualExpr(Expr.parse('c_x*d_x + c_y*d_y + c_z*d_z = 0'))
 	});
 });
 
