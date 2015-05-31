@@ -7,5 +7,5 @@ define ['expr', 'errors'], (Expr, errors) ->
 
 		isEqualTo: (other) ->
 			errors.TypeError.assert(other, Scalar)
-			return Expr.parse(@symbol + ' = ' + other.symbol)
+			return Expr.var(@symbol).eq(Expr.var(other.symbol))
 

@@ -25,7 +25,11 @@ define ['expr'], (Expr) ->
 	class System
 		constructor: -> @exprList = []
 		
-		add: (s) -> @exprList.push(Expr.parse(s))
+		add: (expr) ->
+			@exprList.push(switch
+				when expr instanceof Expr    then expr
+				when typeof expr is 'string' then Expr.parse(expr)
+			)
 		
 		vars: ->
 			vars = []
