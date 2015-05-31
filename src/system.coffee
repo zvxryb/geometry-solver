@@ -2,9 +2,10 @@
 # this work is subject to the terms of the MIT license
 
 define ['expr'], (Expr) ->
-	class SolveError extends Error
+	class SolveError
 		constructor: (@message, @cause) ->
-			@stack = @cause?.stack
+			@name  = @constructor.name
+			@stack = (new Error()).stack
 	
 	class OverdeterminedError extends SolveError
 		constructor: ->

@@ -2,12 +2,20 @@
 # this work is subject to the terms of the MIT license
 
 define ->
-	class TypeError extends Error
-		constructor: (@actual, @expected) ->
-			@message = 'type ' + @actual + ', expected ' + @expected
+	class TypeError
+		constructor: (actual, expected) ->
+			@name    = @constructor.name
+			@message = 'type ' + actual + ', expected ' + expected
+			@stack   = (new Error).stack
 		
 		@assert: (value, type) ->
-			throw new TypeError(value.constructor.name, type.name) unless value instanceof type
+			args = switch typeof type
+				when 'string'
+					[typeof value, type] unless typeof value is type
+				when 'function'
+					[value.constructor.name, type.name] unless value instanceof type
+				else undefined
+			throw new TypeError(args...) if args
 	
 	(
 		TypeError: TypeError
