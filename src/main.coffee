@@ -1,7 +1,7 @@
 # copyright 2015 by mike lodato (zvxryb@gmail.com)
 # this work is subject to the terms of the MIT license
 
-define ['expr', 'scalar', 'vector', 'system', 'coffeequate'], (Expr, Scalar, Vector, System, CQ) ->
+define ['math/expr', 'geometry/scalar', 'geometry/vector', 'math/system', 'coffeequate'], (Expr, Scalar, Vector, System, CQ) ->
 	Expr:   Expr
 	Scalar: Scalar
 	Vector: Vector

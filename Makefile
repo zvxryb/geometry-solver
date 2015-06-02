@@ -7,7 +7,10 @@ COFFEEQUATE_OBJ = $(COFFEEQUATE_SRC:.coffee=.js)
 COFFEEQUATE_BIN = build/lib/coffeequate.js
 BIN = build/openjscad-solve.min.js
 BIN_DEBUG = build/openjscad-solve.debug.js
-SRC = $(wildcard src/*.coffee)
+SRC_SUBDIRS = core geometry math
+SRC_DIRS    = src $(addprefix src/, $(SRC_SUBDIRS))
+SRC_PATTERN = $(addsuffix /*.coffee, $(SRC_DIRS))
+SRC = $(wildcard $(SRC_PATTERN))
 OBJ = $(SRC:.coffee=.js)
 
 test: build

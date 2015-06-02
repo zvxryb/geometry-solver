@@ -1,7 +1,7 @@
 # copyright 2015 by mike lodato (zvxryb@gmail.com)
 # this work is subject to the terms of the MIT license
 
-define ['expr', 'utils', 'errors'], (Expr, utils, errors) ->
+define ['math/expr', 'core/utils', 'core/errors'], (Expr, utils, errors) ->
 	class VecN
 		constructor: (@symbols...) ->
 		
