@@ -8,6 +8,9 @@ define ->
 			@message = 'type ' + actual + ', expected ' + expected
 			@stack   = (new Error).stack
 		
+		@throw: (value, types...) ->
+			throw new TypeError(value.constructor.name, (type.name for type in types).join(', '))
+		
 		@assert: (value, type) ->
 			args = switch typeof type
 				when 'string'

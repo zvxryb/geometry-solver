@@ -101,5 +101,29 @@ describe('constraints', function () {
 		expect(c.isUnit()).toEqualExpr(Expr.parse('c_x**2 + c_y**2 + c_z**2 = 1'))
 		expect(c.isOrthogonalTo(d)).toEqualExpr(Expr.parse('c_x*d_x + c_y*d_y + c_z*d_z = 0'))
 	});
+	
+	it('line', function () {
+		var Expr = global.solve.Expr;
+		var Vec2 = global.solve.Vector.Vec2;
+		var Line = global.solve.Line;
+		
+		var a = new Vec2('a');
+		var b = new Vec2('b');
+		var line = new Line('line', Vec2);
+		
+		var intrinsics = line.intrinsics();
+		expect(intrinsics.length).toBe(1);
+		expect(intrinsics[0]).toEqualExpr(Expr.parse('line_dir_x**2 + line_dir_y**2 = 1'));
+		
+		(function (x, y) {
+			expect(x).toEqualExpr(Expr.parse('line_orig_x = a_x'));
+			expect(y).toEqualExpr(Expr.parse('line_orig_y = a_y'));
+		}).apply(this, line.orig.isEqualTo(a));
+		
+		(function (x, y) {
+			expect(x).toEqualExpr(Expr.parse('line_orig_x + line_temp0 * line_dir_x = b_x'))
+			expect(y).toEqualExpr(Expr.parse('line_orig_y + line_temp0 * line_dir_y = b_y'))
+		}).apply(this, line.isIncident(b));
+	});
 });
 

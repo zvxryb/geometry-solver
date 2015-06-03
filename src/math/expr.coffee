@@ -13,6 +13,9 @@ define ['coffeequate', 'core/errors'], (CQ, errors) ->
 			errors.TypeError.assert(label, 'string')
 			new Expr(CQ(new CQ.raw.Variable(label)))
 
+		@vars: (prefix, labels...) ->
+			(@var(prefix + '_' + label) for label in labels)
+
 		@const: (args...) ->
 			new Expr(CQ(new CQ.raw.Constant(args...)))
 
@@ -32,7 +35,7 @@ define ['coffeequate', 'core/errors'], (CQ, errors) ->
 		@eq: (x, y) ->
 			errors.TypeError.assert(x, Expr)
 			errors.TypeError.assert(y, Expr)
-			@add(@mul(@const(-1), x), y)
+			Expr.const(-1).mul(x).add(y)
 
 		solve: (x) -> (new Expr(y) for y in @cq.solve(x))
 
