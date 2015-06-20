@@ -25,8 +25,7 @@
 					'  else root.geometrySolver = factory(root.coffeequate);\n'+
 					'})(this, function(geometrySolver_coffeequate) {\n',
 				end: '\n'+
-					'console.log(geometrySolver_main);\n'+
-					'return geometrySolver_main;\n'+
+					'  return geometrySolver_main;\n'+
 					'});\n'
 			}
 		}));

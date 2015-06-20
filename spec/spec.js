@@ -1,5 +1,4 @@
 var geometrySolver = require('../geometrySolver.debug.js');
-console.log(geometrySolver);
 
 var solutionMatcher = function (util, eq) {
 	var compare = function (lhs, rhs) {
