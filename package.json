@@ -1,0 +1,29 @@
+{
+	"name": "geometry-solver",
+	"private": true,
+	"version": "0.1.0",
+	"bugs": { "url": "https://github.com/zvxryb/openjscad-solve/issues" },
+	"license": "MIT",
+	"author": {
+		"name": "Mike Lodato",
+		"email": "zvxryb@gmail.com",
+		"url": "https://zvxryb.github.io"
+	},
+	"files": [
+		"openjscad-solve.debug.js",
+		"openjscad-solve.min.js"
+	],
+	"main": "openjscad-solve.min.js",
+	"dependencies": {
+		"coffeequate": ">=1.2.2"
+	},
+	"devDependencies": {
+		"coffee-script": "1.9.x",
+		"requirejs": "2.1.x",
+		"amdclean": "2.7.x",
+		"jasmine": "2.3.x"
+	},
+	"scripts": {
+		"prepublish": "make clean; make"
+	}
+}

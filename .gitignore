@@ -1,2 +1,4 @@
-build/
-src/**/*.js
+/geometrySolver.min.js
+/geometrySolver.debug.js
+/src/**/*.js
+/node_modules/

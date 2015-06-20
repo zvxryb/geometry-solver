@@ -1,11 +1,11 @@
 ({
 	baseUrl: 'src',
 	paths: {
-		coffeequate: '../build/lib/coffeequate',
+		coffeequate: 'empty:',
 		main: 'main'
 	},
 	name: 'main',
-	out: 'build/openjscad-solve.min.js',
+	out: 'geometrySolver.min.js',
 	onModuleBundleComplete: function (data) {
 		var fs       = module.require('fs');
 		var amdclean = module.require('amdclean');
@@ -13,16 +13,21 @@
 			filePath: data.path,
 			prefixMode: 'camelCase',
 			prefixTransform: function (name, _) {
-				return 'module_solve_' + name;
+				return 'geometrySolver_' + name;
 			},
 			wrap: {
 				start:
-					'(function (root, solve) {\n'+
-					'  root.solve = solve;\n'+
-					'})(typeof global === \'object\' ? global : this, function() {\n',
+					'(function (root, factory) {\n'+
+					'  if (typeof define === \'function\' && define.amd)\n'+
+					'    define([\'coffeequate\'], factory);\n'+
+					'  else if (typeof module !== \'undefined\' && module.exports)\n'+
+					'    module.exports = factory(require(\'coffeequate\'));\n'+
+					'  else root.geometrySolver = factory(root.coffeequate);\n'+
+					'})(this, function(geometrySolver_coffeequate) {\n',
 				end: '\n'+
-					'return module_solve_main;\n'+
-					'}());\n'
+					'console.log(geometrySolver_main);\n'+
+					'return geometrySolver_main;\n'+
+					'});\n'
 			}
 		}));
 	}

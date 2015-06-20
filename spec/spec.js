@@ -1,3 +1,6 @@
+var geometrySolver = require('../geometrySolver.debug.js');
+console.log(geometrySolver);
+
 var solutionMatcher = function (util, eq) {
 	var compare = function (lhs, rhs) {
 		var lhs = lhs.slice().sort();
@@ -40,7 +43,7 @@ describe('triangle', function () {
 	});
 
 	it('3, 4, 5', function () {
-		var system = new global.solve.System();
+		var system = new geometrySolver.System();
 		system.add('a**2 + b**2 = c**2');
 		system.add('a = 3');
 		system.add('c = 5');
@@ -79,8 +82,8 @@ describe('constraints', function () {
 	});
 
 	it('scalar', function () {
-		var Expr   = global.solve.Expr;
-		var Scalar = global.solve.Scalar;
+		var Expr   = geometrySolver.Expr;
+		var Scalar = geometrySolver.Scalar;
 		var a = new Scalar('a');
 		var b = new Scalar('b');
 		var actual   = a.isEqualTo(b);
@@ -89,23 +92,23 @@ describe('constraints', function () {
 	});
 
 	it('vector', function () {
-		var Expr = global.solve.Expr;
-		var Vec2 = global.solve.Vector.Vec2;
-		var Vec3 = global.solve.Vector.Vec3;
+		var Expr = geometrySolver.Expr;
+		var Vec2 = geometrySolver.Vector.Vec2;
+		var Vec3 = geometrySolver.Vector.Vec3;
 		var a = new Vec2('a');
 		var b = new Vec2('b');
 		var c = new Vec3('c');
 		var d = new Vec3('d');
 		expect(a.isUnit()).toEqualExpr(Expr.parse('a_x**2 + a_y**2 = 1'))
-		expect(a.isOrthogonalTo(b)).toEqualExpr(Expr.parse('a_x*b_x + a_y*b_y = 0'))
+		expect(a.isOrthogonalTo(b)).toEqualExpr(Expr.parse('0 = a_x*b_x + a_y*b_y'))
 		expect(c.isUnit()).toEqualExpr(Expr.parse('c_x**2 + c_y**2 + c_z**2 = 1'))
-		expect(c.isOrthogonalTo(d)).toEqualExpr(Expr.parse('c_x*d_x + c_y*d_y + c_z*d_z = 0'))
+		expect(c.isOrthogonalTo(d)).toEqualExpr(Expr.parse('0 = c_x*d_x + c_y*d_y + c_z*d_z'))
 	});
 	
 	it('line', function () {
-		var Expr = global.solve.Expr;
-		var Vec2 = global.solve.Vector.Vec2;
-		var Line = global.solve.Line;
+		var Expr = geometrySolver.Expr;
+		var Vec2 = geometrySolver.Vector.Vec2;
+		var Line = geometrySolver.Line;
 		
 		var a = new Vec2('a');
 		var b = new Vec2('b');
